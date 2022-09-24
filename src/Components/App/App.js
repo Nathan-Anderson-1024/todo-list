@@ -4,14 +4,8 @@ import React, {useState, useEffect, useRef} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
-  const [todoInput, setTodoInput] = useState([]);
+  const [todoInput, setTodoInput] = useState(JSON.parse(localStorage.getItem('todoApp.todos')) ?? []);
 
-  useEffect(() => {
-    const storedTodos = JSON.parse(localStorage.getItem('todoApp.todos'))
-    if (storedTodos) {
-      setTodoInput(storedTodos)
-    }
-  }, [])
 
   useEffect(() => {
     localStorage.setItem('todoApp.todos', JSON.stringify(todoInput))
@@ -43,7 +37,7 @@ function App() {
 
   return (
     <div>
-      <h1>TODO List</h1>
+      <h1 className='input-title'>TODO List</h1>
       <div className='input-container'>
         <label>Enter A New TODO below</label>
         <form className='input-line' onSubmit={stopReload}>
